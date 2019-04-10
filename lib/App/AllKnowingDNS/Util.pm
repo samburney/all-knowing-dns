@@ -107,7 +107,7 @@ sub netmask_to_ptrzone {
     my ($netmask) = @_;
 
     my ($address, $mask) = ($netmask =~ m,^([^/]+)/([0-9]+),);
-    if (($mask % 16) != 0) {
+    if (($mask % 4) != 0) {
         say STDERR "all-knowing-dns: ERROR: Only netmasks which " .
                    "are dividable by 16 are supported!";
         exit 1;
