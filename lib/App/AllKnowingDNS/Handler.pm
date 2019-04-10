@@ -37,7 +37,7 @@ sub handle_ptr_query {
             nameservers => [ $zone->upstream_dns ],
             recurse => 0,
         );
-        my $result = $resolver->query($qname . '.upstream', 'PTR');
+        my $result = $resolver->query($qname, 'PTR');
 
         # If the upstream query was successful, relay the response, otherwise
         # generate a reply.
@@ -48,7 +48,6 @@ sub handle_ptr_query {
             my @answer = $result->answer;
             for my $answer (@answer) {
                 my $name = $answer->name;
-                $name =~ s/\.upstream$//;
                 $answer->name($name);
             }
             return ('NOERROR', [ $result->answer ], [], [], { aa => 1 });
